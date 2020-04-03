@@ -6,6 +6,11 @@ import android.os.Build;
 
 import java.lang.ref.WeakReference;
 
+import android.os.Handler;
+import com.felipecsl.gifimageview.library.GifImageView;
+import org.apache.commons.io.IOUtils;
+import java.io.IOException;
+import java.io.InputStream;
 /**
  * SplashScreen
  * 启动屏
@@ -17,7 +22,7 @@ import java.lang.ref.WeakReference;
 public class SplashScreen {
     private static Dialog mSplashDialog;
     private static WeakReference<Activity> mActivity;
-
+    private static GifImageView gifImageView;
     /**
      * 打开启动屏
      */
@@ -30,6 +35,18 @@ public class SplashScreen {
                 if (!activity.isFinishing()) {
                     mSplashDialog = new Dialog(activity, themeResId);
                     mSplashDialog.setContentView(R.layout.launch_screen);
+                    try {
+                        mSplashDialog.setContentView(R.layout.launch_screen);
+                        gifImageView = mSplashDialog.findViewById(R.id.gifImageView);
+                        InputStream inputStream = null;
+                        inputStream = activity.getApplicationContext().getAssets().open("fulcrum_splash_screen_logo.gif");
+
+                        byte[] bytes = IOUtils.toByteArray(inputStream);
+                        gifImageView.setBytes(bytes);
+                        gifImageView.startAnimation();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     mSplashDialog.setCancelable(false);
 
                     if (!mSplashDialog.isShowing()) {

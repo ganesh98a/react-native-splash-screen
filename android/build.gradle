@@ -30,4 +30,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.facebook.react:react-native:+" // From node_modules
+    compile 'com.felipecsl:gifimageview:2.0.0'
+    compile 'commons-io:commons-io:2.6'
 }
